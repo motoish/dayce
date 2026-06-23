@@ -4,30 +4,33 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.motoish.dayce.data.DayEventEntity
-import com.motoish.dayce.domain.DayCalculator
+import com.motoish.dayce.domain.DayCountFormatter
 import com.motoish.dayce.domain.DayEventKind
 import java.time.LocalDate
 
@@ -45,7 +48,12 @@ fun EventListScreen(
     Scaffold(
         topBar = { TopAppBar(title = { Text("dayce") }) },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAdd) { Text("+") }
+            FloatingActionButton(
+                onClick = onAdd,
+                modifier = Modifier.size(64.dp)
+            ) {
+                Text("+", fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
+            }
         }
     ) { padding ->
         Column(
@@ -88,12 +96,18 @@ private fun FilterRow(selected: EventFilter, onSelected: (EventFilter) -> Unit) 
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         EventFilter.entries.forEach { filter ->
-            TextButton(
+            FilterChip(
+                selected = filter == selected,
                 onClick = { onSelected(filter) },
-                enabled = filter != selected
-            ) {
-                Text(filter.label)
-            }
+                label = {
+                    Text(
+                        text = filter.label,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                },
+                modifier = Modifier.defaultMinSize(minHeight = 48.dp)
+            )
         }
     }
 }
@@ -104,7 +118,7 @@ private fun EventRow(
     today: LocalDate,
     onClick: () -> Unit
 ) {
-    val count = DayCalculator.dayCount(event.kind, event.date, today)
+    val countLabel = DayCountFormatter.label(event.kind, event.date, today)
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -126,7 +140,7 @@ private fun EventRow(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = event.date.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = "$count days", style = MaterialTheme.typography.headlineSmall)
+            Text(text = countLabel, style = MaterialTheme.typography.headlineSmall)
         }
     }
 }

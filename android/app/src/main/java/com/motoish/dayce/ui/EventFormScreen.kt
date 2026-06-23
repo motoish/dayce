@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.motoish.dayce.data.DayEventEntity
@@ -35,12 +36,12 @@ fun EventFormScreen(
     onCancel: () -> Unit,
     onSave: (String, LocalDate, DayEventKind, String?) -> Unit
 ) {
-    var name by remember(existing?.id) { mutableStateOf(existing?.name.orEmpty()) }
+    var name by remember(existing?.id) { mutableStateOf(TextFieldValue(existing?.name.orEmpty())) }
     var dateText by remember(existing?.id) { mutableStateOf((existing?.date ?: LocalDate.now()).toString()) }
     var kind by remember(existing?.id) { mutableStateOf(existing?.kind ?: DayEventKind.CountUp) }
-    var note by remember(existing?.id) { mutableStateOf(existing?.note.orEmpty()) }
+    var note by remember(existing?.id) { mutableStateOf(TextFieldValue(existing?.note.orEmpty())) }
     val parsedDate = remember(dateText) { dateText.toLocalDateOrNull() }
-    val canSave = name.isNotBlank() && parsedDate != null
+    val canSave = name.text.isNotBlank() && parsedDate != null
 
     Scaffold(
         topBar = {
@@ -93,7 +94,7 @@ fun EventFormScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Button(
-                onClick = { onSave(name, parsedDate ?: LocalDate.now(), kind, note) },
+                onClick = { onSave(name.text, parsedDate ?: LocalDate.now(), kind, note.text) },
                 enabled = canSave,
                 modifier = Modifier.fillMaxWidth()
             ) {

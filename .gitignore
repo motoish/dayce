@@ -8,3 +8,8 @@ xcuserdata/
 .gradle/
 **/build/
 local.properties
+
+# IDE local state
+.idea/
+android/.idea/
+android/gradle/gradle-daemon-jvm.properties
