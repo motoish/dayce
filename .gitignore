@@ -3,3 +3,8 @@ build/
 *.xcuserstate
 xcuserdata/
 .DS_Store
+
+# Android
+.gradle/
+**/build/
+local.properties
