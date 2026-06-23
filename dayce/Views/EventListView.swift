@@ -5,7 +5,7 @@ struct EventListView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DayEvent.date) private var events: [DayEvent]
 
-    @Binding var selection: DayEvent?
+    @Binding var selection: UUID?
     @State private var filter = EventFilter.all
     @State private var isAdding = false
 
@@ -26,7 +26,7 @@ struct EventListView: View {
                     }
                 }
             } else {
-                List {
+                List(selection: $selection) {
                     Picker("Filter", selection: $filter) {
                         ForEach(EventFilter.allCases) { filter in
                             Text(filter.displayName).tag(filter)
@@ -36,15 +36,28 @@ struct EventListView: View {
                     .listRowSeparator(.hidden)
 
                     ForEach(filteredEvents) { event in
-                        Button {
-                            selection = event
-                        } label: {
+                        NavigationLink(value: event.id) {
                             EventRowView(event: event)
-                                .contentShape(Rectangle())
                         }
-                        .buttonStyle(.plain)
+                        .tag(event.id)
+                        .swipeActions(edge: .trailing) {
+                            Button("Delete", role: .destructive) {
+                                delete(event)
+                            }
+                        }
                     }
                     .onDelete(perform: deleteEvents)
+                }
+                .navigationDestination(for: UUID.self) { eventID in
+                    if let event = EventSelection.selectedEvent(for: eventID, in: events) {
+                        EventDetailView(event: event, selection: $selection)
+                    } else {
+                        ContentUnavailableView(
+                            "Event Not Found",
+                            systemImage: "calendar.badge.exclamationmark",
+                            description: Text("This event may have been deleted.")
+                        )
+                    }
                 }
             }
         }
@@ -66,18 +79,19 @@ struct EventListView: View {
                     note: draft.note
                 )
                 modelContext.insert(event)
-                selection = event
+                selection = event.id
             }
         }
     }
 
     private func deleteEvents(at offsets: IndexSet) {
         for index in offsets {
-            let event = filteredEvents[index]
-            if selection?.id == event.id {
-                selection = nil
-            }
-            modelContext.delete(event)
+            delete(filteredEvents[index])
         }
+    }
+
+    private func delete(_ event: DayEvent) {
+        EventSelection.clearSelectionIfNeeded(deletedEventID: event.id, selection: &selection)
+        modelContext.delete(event)
     }
 }

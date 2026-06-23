@@ -3,9 +3,11 @@ import SwiftUI
 
 struct EventDetailView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var isEditing = false
 
     let event: DayEvent
+    @Binding var selection: UUID?
 
     var body: some View {
         let value = DayCalculator.dayValue(for: event.date, kind: event.kind)
@@ -40,7 +42,9 @@ struct EventDetailView: View {
 
             Section {
                 Button("Delete Event", role: .destructive) {
+                    EventSelection.clearSelectionIfNeeded(deletedEventID: event.id, selection: &selection)
                     modelContext.delete(event)
+                    dismiss()
                 }
             }
         }

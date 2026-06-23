@@ -2,15 +2,16 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedEvent: DayEvent?
+    @Query(sort: \DayEvent.date) private var events: [DayEvent]
+    @State private var selectedEventID: UUID?
 
     var body: some View {
         NavigationSplitView {
-            EventListView(selection: $selectedEvent)
+            EventListView(selection: $selectedEventID)
                 .navigationTitle("dayce")
         } detail: {
-            if let selectedEvent {
-                EventDetailView(event: selectedEvent)
+            if let selectedEvent = EventSelection.selectedEvent(for: selectedEventID, in: events) {
+                EventDetailView(event: selectedEvent, selection: $selectedEventID)
             } else {
                 ContentUnavailableView(
                     "No Event Selected",

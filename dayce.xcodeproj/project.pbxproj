@@ -11,6 +11,7 @@
 		111111111111111111111002 /* DayEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112002 /* DayEvent.swift */; };
 		111111111111111111111003 /* DayCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112003 /* DayCalculator.swift */; };
 		111111111111111111111004 /* EventFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112004 /* EventFilter.swift */; };
+		111111111111111111111014 /* EventSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112016 /* EventSelection.swift */; };
 		111111111111111111111005 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112005 /* ContentView.swift */; };
 		111111111111111111111006 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112006 /* EventListView.swift */; };
 		111111111111111111111007 /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112007 /* EventRowView.swift */; };
@@ -19,6 +20,7 @@
 		111111111111111111111010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112010 /* Assets.xcassets */; };
 		111111111111111111111011 /* DayCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112011 /* DayCalculatorTests.swift */; };
 		111111111111111111111012 /* EventFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112012 /* EventFilterTests.swift */; };
+		111111111111111111111013 /* EventSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111111111111111111112015 /* EventSelectionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 		111111111111111111112002 /* DayEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEvent.swift; sourceTree = "<group>"; };
 		111111111111111111112003 /* DayCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCalculator.swift; sourceTree = "<group>"; };
 		111111111111111111112004 /* EventFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFilter.swift; sourceTree = "<group>"; };
+		111111111111111111112016 /* EventSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSelection.swift; sourceTree = "<group>"; };
 		111111111111111111112005 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		111111111111111111112006 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 		111111111111111111112007 /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 		111111111111111111112012 /* EventFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFilterTests.swift; sourceTree = "<group>"; };
 		111111111111111111112013 /* dayce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dayce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		111111111111111111112014 /* dayceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dayceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		111111111111111111112015 /* EventSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSelectionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 			children = (
 				111111111111111111112003 /* DayCalculator.swift */,
 				111111111111111111112004 /* EventFilter.swift */,
+				111111111111111111112016 /* EventSelection.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 			children = (
 				111111111111111111112011 /* DayCalculatorTests.swift */,
 				111111111111111111112012 /* EventFilterTests.swift */,
+				111111111111111111112015 /* EventSelectionTests.swift */,
 			);
 			path = dayceTests;
 			sourceTree = "<group>";
@@ -237,6 +243,7 @@
 				111111111111111111111002 /* DayEvent.swift in Sources */,
 				111111111111111111111003 /* DayCalculator.swift in Sources */,
 				111111111111111111111004 /* EventFilter.swift in Sources */,
+				111111111111111111111014 /* EventSelection.swift in Sources */,
 				111111111111111111111005 /* ContentView.swift in Sources */,
 				111111111111111111111006 /* EventListView.swift in Sources */,
 				111111111111111111111007 /* EventRowView.swift in Sources */,
@@ -251,6 +258,7 @@
 			files = (
 				111111111111111111111011 /* DayCalculatorTests.swift in Sources */,
 				111111111111111111111012 /* EventFilterTests.swift in Sources */,
+				111111111111111111111013 /* EventSelectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
