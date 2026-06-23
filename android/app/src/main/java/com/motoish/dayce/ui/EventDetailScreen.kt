@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.motoish.dayce.domain.DayCalculator
+import com.motoish.dayce.domain.DayCountFormatter
 import com.motoish.dayce.domain.DayEventKind
 import java.time.LocalDate
 
@@ -58,7 +58,7 @@ fun EventDetailScreen(
                 TextButton(onClick = onBack) { Text("Back") }
             }
         } else {
-            val count = DayCalculator.dayCount(currentEvent.kind, currentEvent.date, LocalDate.now())
+            val countLabel = DayCountFormatter.label(currentEvent.kind, currentEvent.date, LocalDate.now())
             Column(
                 modifier = Modifier
                     .padding(padding)
@@ -71,7 +71,7 @@ fun EventDetailScreen(
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.SemiBold
                 )
-                Text(text = "$count days", style = MaterialTheme.typography.displaySmall)
+                Text(text = countLabel, style = MaterialTheme.typography.displaySmall)
                 Text(text = currentEvent.date.toString(), style = MaterialTheme.typography.titleMedium)
                 Text(text = if (currentEvent.kind == DayEventKind.CountUp) "Count up" else "Countdown")
                 currentEvent.note?.let { Text(text = it) }
